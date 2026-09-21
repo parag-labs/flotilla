@@ -26,7 +26,11 @@ is the Raft algorithm:
 
 ![shared scheduler and RPC batching](docs/diagrams/shared-scheduler-batching.png)
 
-*(The same diagram renders inline as Mermaid in the [README](README.md#how-it-works); this PNG is a static export.)*
+*(A detailed static view: one `Scheduler` per node drives every local replica in a
+single pass, outbound messages are coalesced by destination into one `Envelope` per
+peer so wire cost tracks peer pairs rather than group count, and the min-id-as-string
+leader rule is the subtlety the ports pin down. The [README](README.md#how-it-works)
+renders a simpler version inline as Mermaid.)*
 
 
 The unit of execution is a per-node `Scheduler`, not a per-group task. It holds
