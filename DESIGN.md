@@ -32,6 +32,13 @@ peer so wire cost tracks peer pairs rather than group count, and the min-id-as-s
 leader rule is the subtlety the ports pin down. The [README](README.md#how-it-works)
 renders a simpler version inline as Mermaid.)*
 
+<details>
+<summary>Before the redraw - the earlier version of this diagram</summary>
+
+![shared scheduler and RPC batching, before the redraw](docs/diagrams/shared-scheduler-batching-v1.png)
+
+</details>
+
 
 The unit of execution is a per-node `Scheduler`, not a per-group task. It holds
 every group replica local to that node and drives them all in one pass. Adding a
