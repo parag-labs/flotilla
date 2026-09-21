@@ -1,0 +1,10 @@
+[package]
+name = "flotilla"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Run thousands of independent Raft consensus groups on one set of nodes - shared scheduler, batched cross-group RPC."
+
+[lib]
+name = "flotilla"
+path = "src/lib.rs"

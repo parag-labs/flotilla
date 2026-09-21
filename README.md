@@ -44,15 +44,23 @@ pip install -e ".[dev]"
 pytest
 ```
 
-## Three languages, one behavior
+## Six languages, one behavior
 
-The same scheduler, cluster, and batching logic — and the same 4 tests — in each language:
+The same scheduler, cluster, and batching logic — the same convergence and batching-win behaviour — in each language:
 
 | Language | Tests | Run |
 |----------|:-----:|-----|
 | Python | 4 | `pytest -q` |
 | C# (.NET 10) | 4 | `cd csharp && dotnet test` |
 | Java (17+) | 4 | `cd java && mvn test` |
+| Go (1.23+) | 16 | `cd go && go test ./...` |
+| Rust | 16 | `cd rust && cargo test` |
+| TypeScript | 17 | `cd ts && npm install && npm test` |
+
+> **One shared subtlety the ports pin down:** leader selection is `min()` over the
+> member ids treated as *strings*, so ids sort lexicographically rather than
+> numerically — `"n10"` is smaller than `"n2"`. Each port mirrors Python's string
+> `min`, and every port has a test asserting it so the six stay identical.
 
 ## Design
 
@@ -89,6 +97,9 @@ flotilla/
 │   └── cluster.py      cluster wiring + cross-group RPC batching
 ├── csharp/             the same scheduler + batching, ported to .NET 10 (xUnit)
 ├── java/               the same, in Java 17+ (JUnit / Maven)
+├── go/                 the same, in Go (go test)
+├── rust/               the same, in Rust (cargo test)
+├── ts/                 the same, in TypeScript (vitest)
 ├── tests/              convergence + the batching-win tests
 └── DESIGN.md           the scheduler, the batching, and the non-goals
 ```
